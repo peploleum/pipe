@@ -1,0 +1,12 @@
+spring:
+    cloud:
+        stream:
+            kafka:
+                binder:
+                    brokers: localhost:8092
+                    zk-nodes: localhost
+            bindings:
+                input:
+                    source: topic-insight
+                output:
+                    destination: topic-insight
