@@ -7,6 +7,10 @@ spring:
                     zk-nodes: localhost
             bindings:
                 input:
-                    source: topic-insight
+                    binder: kafka
+                    destination: topic
                 output:
-                    destination: topic-insight
+                    binder: kafka
+                    destination: topic
+format: DD-MM-YYY-hh:mm
+fixed-delay: 30

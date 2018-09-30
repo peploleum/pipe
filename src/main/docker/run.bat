@@ -1,0 +1,1 @@
+docker-compose -f pipeline.yml -p pipeline up
