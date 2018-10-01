@@ -14,16 +14,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Configuration
-@EnableBinding(Source.class)
+//@EnableBinding(Source.class)
 public class TimerSource {
 
     @Value("${format}")
     private String format;
 
-    @Bean
-    @InboundChannelAdapter(value = Source.OUTPUT, poller = @Poller(fixedDelay = "${fixed-delay}", maxMessagesPerPoll = "1"))
-    public MessageSource<String> timerMessageSource() {
-        return () -> new GenericMessage<>(new SimpleDateFormat(format).format(new Date()));
-    }
+//    @Bean
+//    @InboundChannelAdapter(value = Source.OUTPUT, poller = @Poller(fixedDelay = "${fixed-delay}", maxMessagesPerPoll = "1"))
+//    public MessageSource<String> timerMessageSource() {
+//        return () -> new GenericMessage<>(new SimpleDateFormat(format).format(new Date()));
+//    }
 
 }
