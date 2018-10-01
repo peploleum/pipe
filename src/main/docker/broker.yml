@@ -1,14 +1,12 @@
 version: '2'
 services:
-    #nifi:
-    #    image: apache/nifi:latest
-    #    ports:
-    #        - "8090:8080"
     zookeeper:
         image: wurstmeister/zookeeper:latest
         container_name: zookeeper
         ports:
-          - 2181:2181
+        - 2181:2181
+        networks:
+        - pipeline
     kafka:
         image: wurstmeister/kafka:latest
         environment:
@@ -17,4 +15,9 @@ services:
             KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
             KAFKA_CREATE_TOPICS: "topic:1:1"
         ports:
-            - 8092:9092
+        - 8092:9092
+        networks:
+        - pipeline
+networks:
+    pipeline:
+        external: true

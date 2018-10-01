@@ -1,7 +1,9 @@
-# insight
+# sandbox
 Spring boot 2-based Kafka client
 ## Development
 
+    docker network create -d bridge pipeline
+    
 Subscribes to a docker-compose spawned Kafka topic. 
     
     docker inspect --format '{{ .NetworkSettings.Networks.$network.IPAddress }}' 30f692fc1ed7

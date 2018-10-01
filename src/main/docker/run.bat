@@ -1,1 +1,1 @@
-docker-compose -f pipeline.yml -p pipeline up
+docker-compose -f broker.yml -p broker up
