@@ -4,6 +4,8 @@ services:
         image: apache/nifi:latest
         ports:
         - "8090:8080"
+        volumes:
+        - C:/dev/share/nifi/templates/:/opt/nifi/nifi-current/conf/templates/
         networks:
         - pipeline
 networks:
