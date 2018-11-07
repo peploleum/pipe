@@ -1,5 +1,9 @@
 version: '2'
 services:
+    insight-elk:
+        extends:
+            file: ./elk/elk.yml
+            service: elasticsearch
     nifi:
         image: apache/nifi:latest
         ports:
@@ -7,7 +11,9 @@ services:
         volumes:
         - C:/dev/share/nifi/templates/:/opt/nifi/nifi-current/conf/templates/
         networks:
-        - pipeline
+        - insight
+        depends_on:
+          - insight-elk
 networks:
-    pipeline:
-        external: true
+    insight:
+        driver: bridge
