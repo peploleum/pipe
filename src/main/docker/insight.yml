@@ -21,6 +21,7 @@ services:
         - insight
     #ELK
     elasticsearch:
+        container_name: elasticsearch
         build:
             context: ./elk/elasticsearch/
             args:
@@ -53,6 +54,7 @@ services:
         depends_on:
         - elasticsearch
     kibana:
+        container_name: kibana
         build:
             context: ./elk/kibana/
             args:
@@ -66,14 +68,41 @@ services:
         depends_on:
         - elasticsearch
     #NIFI
-    nifi:
-        image: apache/nifi:latest
+#    nifi:
+#        image: apache/nifi:latest
+#        ports:
+#        - "8090:8080"
+#        volumes:
+#        - ./feeder/templates/:/opt/nifi/nifi-current/conf/templates/
+#        networks:
+#        - insight
+    #APP
+    insight-postgresql:
+        image: postgres:10.4
+        # volumes:
+        #     - ~/volumes/jhipster/insight/postgresql/:/var/lib/postgresql/data/
+        environment:
+        - POSTGRES_USER=insight
+        - POSTGRES_PASSWORD=
         ports:
-        - "8090:8080"
-        volumes:
-        - ./feeder/templates/:/opt/nifi/nifi-current/conf/templates/
+        - 5432:5432
         networks:
-        - insight
+          - insight
+    insight-app:
+        image: insight
+        environment:
+        # - _JAVA_OPTIONS=-Xmx512m -Xms256m
+        - SPRING_PROFILES_ACTIVE=prod,swagger
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://insight-postgresql:5432/insight
+        - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9300
+        - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka
+        - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES=zookeeper
+        - SPRING_DATA_JEST_URI=elasticsearch:9200
+        ports:
+        - 8080:8080
+        networks:
+          - insight
 networks:
     insight:
         driver: bridge

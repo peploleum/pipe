@@ -20,4 +20,4 @@ services:
         - insight
 networks:
     insight:
-        driver: bridged
+        driver: bridge
