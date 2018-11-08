@@ -1,17 +1,79 @@
-version: '2'
+version: '3'
 services:
-    insight-broker:
-        extends:
-            file: ./broker/broker.yml
-            service: kafka
-    insight-elk:
-        extends:
-            file: ./elk/elk.yml
-            service: elasticsearch
-    insight-feeder:
-        extends:
-            file: ./feeder/feeder.yml
-            service: nifi
+    #BROKER
+    zookeeper:
+        image: wurstmeister/zookeeper:latest
+        container_name: zookeeper
+        ports:
+        - 2181:2181
+        networks:
+        - insight
+    kafka:
+        image: wurstmeister/kafka:latest
+        environment:
+            KAFKA_ADVERTISED_HOST_NAME: 10.71.2.85
+            KAFKA_ADVERTISED_PORT: 8092
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+            KAFKA_CREATE_TOPICS: "topic:1:1"
+        ports:
+        - 8092:9092
+        networks:
+        - insight
+    #ELK
+    elasticsearch:
+        build:
+            context: ./elk/elasticsearch/
+            args:
+                ELK_VERSION: 6.4.2
+        volumes:
+        - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+        ports:
+        - "9200:9200"
+        - "9300:9300"
+        environment:
+            ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+        networks:
+        - insight
+    logstash:
+        build:
+            context: ./elk/logstash/
+            args:
+                ELK_VERSION: 6.4.2
+        volumes:
+        - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+        - ./elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+        - ./elk/logstash/in:/usr/share/logstash/in
+        ports:
+        - "5000:5000"
+        - "9600:9600"
+        environment:
+            LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+        networks:
+        - insight
+        depends_on:
+        - elasticsearch
+    kibana:
+        build:
+            context: ./elk/kibana/
+            args:
+                ELK_VERSION: 6.4.2
+        volumes:
+        - ./elk/kibana/config/:/usr/share/kibana/config:ro
+        ports:
+        - "5601:5601"
+        networks:
+        - insight
+        depends_on:
+        - elasticsearch
+    #NIFI
+    nifi:
+        image: apache/nifi:latest
+        ports:
+        - "8090:8080"
+        volumes:
+        - ./feeder/templates/:/opt/nifi/nifi-current/conf/templates/
+        networks:
+        - insight
 networks:
     insight:
         driver: bridge

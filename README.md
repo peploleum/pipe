@@ -8,11 +8,11 @@ Subscribes to a docker-compose spawned Kafka topic.
     
     docker inspect --format '{{ .NetworkSettings.Networks.$network.IPAddress }}' 30f692fc1ed7
 
-works out of the box with src/main/docker/pipeline.yml
+works out of the box with src/main/docker/dev/broker.yml
 
 shell #1
 
-    docker-compose -f pipeline.yml up -d
+    docker-compose -f broker.yml up -d
     
 shell #2
 
@@ -25,3 +25,8 @@ shell #3
 
     docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -e HOST_IP=docker_host_ip -e ZK=docker_host_ip:2181 -i -t  wurstmeister/kafka /bin/bash
     kafka-console-consumer.sh --topic=topic --bootstrap-server=10.247.185.47:8092
+
+## Pipeline
+
+    cd C:\dev\pipe\src\main\docker
+    docker-compose  -f .\insight.yml  -p insight up
