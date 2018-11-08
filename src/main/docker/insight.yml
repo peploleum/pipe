@@ -1,0 +1,17 @@
+version: '2'
+services:
+    insight-broker:
+        extends:
+            file: ./broker/broker.yml
+            service: kafka
+    insight-elk:
+        extends:
+            file: ./elk/elk.yml
+            service: elasticsearch
+    insight-feeder:
+        extends:
+            file: ./feeder/feeder.yml
+            service: nifi
+networks:
+    insight:
+        driver: bridge

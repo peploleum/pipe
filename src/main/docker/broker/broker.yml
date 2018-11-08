@@ -6,7 +6,7 @@ services:
         ports:
         - 2181:2181
         networks:
-        - pipeline
+        - insight
     kafka:
         image: wurstmeister/kafka:latest
         environment:
@@ -17,7 +17,9 @@ services:
         ports:
         - 8092:9092
         networks:
-        - pipeline
+        - insight
+        depends_on:
+          - zookeeper
 networks:
-    pipeline:
+    insight:
         external: true

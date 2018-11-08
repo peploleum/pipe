@@ -1,7 +1,5 @@
 version: '2'
-
 services:
-
   elasticsearch:
     build:
       context: elasticsearch/
@@ -16,7 +14,6 @@ services:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
       - insight
-
   logstash:
     build:
       context: logstash/
@@ -35,7 +32,6 @@ services:
       - insight
     depends_on:
       - elasticsearch
-
   kibana:
     build:
       context: kibana/
@@ -49,7 +45,6 @@ services:
       - insight
     depends_on:
       - elasticsearch
-
 networks:
   insight:
     external: true
