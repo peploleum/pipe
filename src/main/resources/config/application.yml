@@ -13,4 +13,4 @@ spring:
                     binder: kafka
                     destination: topic
 format: DD/MM/YYY hh:mm:ss
-fixedDelay: 30
+fixed-delay: 3000
