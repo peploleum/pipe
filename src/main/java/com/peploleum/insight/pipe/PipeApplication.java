@@ -7,7 +7,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 
 @SpringBootApplication
-@EnableBinding(value = {Sink.class})
+//@EnableBinding(value = {Sink.class})
 public class PipeApplication {
 
     public static void main(String[] args) {
@@ -15,9 +15,9 @@ public class PipeApplication {
 
     }
 
-    @StreamListener(Sink.INPUT)
-    public void handle(String message) {
-        System.out.println("Received: " + message);
-    }
+//    @StreamListener(Sink.INPUT)
+//    public void handle(String message) {
+//        System.out.println("Received: " + message);
+//    }
 }
 
