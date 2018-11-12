@@ -29,7 +29,7 @@ shell #3
 ## Pipeline
 
     cd C:\dev\pipe\src\main\docker
-    docker-compose  -f .\insight.yml  -p insight up
+    docker-compose  -f .\insight.yml  -p insight up -d
 
 
     curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MTc5MjEyOX0.zDIKMMm7aFkTVdgb_9pU6vOASRvWyLMlA83AByuo7yLiK0cZl8wQLrFh5ABIEcd1gu-5-qV12DbnVsg2r8im7g' -d '{ \ 
