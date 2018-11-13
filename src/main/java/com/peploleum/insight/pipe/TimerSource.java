@@ -24,7 +24,7 @@ public class TimerSource {
     private String format;
 
     @Bean
-    @InboundChannelAdapter(value = Source.OUTPUT, poller = @Poller(fixedDelay = "10", maxMessagesPerPoll = "1"))
+    @InboundChannelAdapter(value = Source.OUTPUT, poller = @Poller(fixedDelay = "${fixed-delay}", maxMessagesPerPoll = "1"))
     public MessageSource<String> timerMessageSource() {
         return () -> {
             final String date = new SimpleDateFormat(this.format).format(new Date());
