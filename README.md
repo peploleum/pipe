@@ -43,11 +43,23 @@ shell #3
 
 ## syslog 
 
-[https://computingforgeeks.com/how-to-configure-rsyslog-centralized-log-server-on-ubuntu-18-04-lts/]
+based on [https://computingforgeeks.com/how-to-configure-rsyslog-centralized-log-server-on-ubuntu-18-04-lts/]
+    
+### start dockerized ubuntu with ssh, git, vim and rsyslog
+    
+    cd /src/main/docker/syslog/
+    
+    docker-compose syslog.yml
+    
+Open root/root ssh connection on the container on port 22
+
+### start rsyslog service
 
     service rsyslog start
     
     service rsyslog status
+    
+### log something
     
     logger "hi"
     
