@@ -1,0 +1,8 @@
+version: '3'
+services:
+    syslog:
+        image: ubuntu-syslog
+        build:
+            context: ./ubuntu/
+        ports:
+        - "22:22"
