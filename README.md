@@ -44,3 +44,11 @@ shell #3
 ## syslog 
 
 [https://computingforgeeks.com/how-to-configure-rsyslog-centralized-log-server-on-ubuntu-18-04-lts/]
+
+    service rsyslog start
+    
+    service rsyslog status
+    
+    logger "hi"
+    
+    cat /var/log/syslog
