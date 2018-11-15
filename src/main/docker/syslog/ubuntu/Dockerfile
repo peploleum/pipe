@@ -12,7 +12,7 @@ COPY sshd_config /etc/ssh/sshd_config
 
 RUN apt-get update && apt-get install -y git
 
-RUN apt-get update && apt-get install -y vim
+RUN apt-get update && apt-get install -y vim && apt-get install -y rsyslog
 
 RUN  apt-get -y autoclean && apt-get -y autoremove && \
      apt-get -y purge $(dpkg --get-selections | grep deinstall | sed s/deinstall//g) && \

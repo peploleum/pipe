@@ -39,3 +39,8 @@ shell #3
        "objetsObserves": "string", \ 
        "type": "string" \ 
      }' 'http://localhost:8080/api/observed-data'
+
+
+## syslog 
+
+[https://computingforgeeks.com/how-to-configure-rsyslog-centralized-log-server-on-ubuntu-18-04-lts/]
